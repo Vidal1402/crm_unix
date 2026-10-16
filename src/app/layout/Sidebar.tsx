@@ -15,16 +15,16 @@ export function Sidebar() {
         <TractionMark className="h-6 w-6" />
       </div>
       <nav className="flex-1 overflow-y-auto px-2 py-2 space-y-1">
-        {NAV_ITEMS.filter((item) => !item.adminOnly || isTenantAdmin).map(({ to, label, icon: Icon }) => (
+        {NAV_ITEMS.filter((item) => !item.adminOnly || isTenantAdmin).map(({ to, label, icon: Icon, comingSoon }) => (
           <NavLink
             key={to}
             to={to}
-            title={label}
+            title={comingSoon ? `${label} — ainda não funciona` : label}
             className="sidebar-link"
             end={to === '/dashboard'}
           >
             <Icon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.7} />
-            <span className="sr-only">{label}</span>
+            <span className="sr-only">{comingSoon ? `${label} (em breve)` : label}</span>
           </NavLink>
         ))}
       </nav>

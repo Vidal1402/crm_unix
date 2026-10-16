@@ -63,7 +63,10 @@ export function MobileNav({ open, onClose, platform = false }: MobileNavProps) {
                 }
               >
                 <Icon className="h-4.5 w-4.5 shrink-0" />
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                {item.comingSoon ? (
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-amber-600">em breve</span>
+                ) : null}
               </NavLink>
             );
           })}

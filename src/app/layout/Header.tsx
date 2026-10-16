@@ -62,8 +62,14 @@ export function Header({ onMenuClick, platform = false }: HeaderProps) {
                   'whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors',
                   active ? 'bg-[#111827] text-white' : 'text-[#4B5563] hover:text-[#111827]',
                 )}
+                title={item.comingSoon ? 'Ainda não funciona — módulo em construção' : undefined}
               >
                 {item.label}
+                {item.comingSoon ? (
+                  <span className={cn('ml-1.5 text-[10px] font-semibold uppercase tracking-wide', active ? 'text-amber-300' : 'text-amber-600')}>
+                    em breve
+                  </span>
+                ) : null}
               </NavLink>
             );
           })}
