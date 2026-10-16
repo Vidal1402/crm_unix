@@ -32,14 +32,12 @@ export const TOP_NAV_ITEMS: NavItem[] = [
   { to: '/inbox', label: 'CRM', icon: Inbox },
   { to: '/contacts', label: 'Leads', icon: Users },
   { to: '/funil', label: 'Pipeline', icon: SquareKanban },
+  { to: '/campaigns', label: 'Disparos', icon: Megaphone },
+  { to: '/settings/profile', label: 'Configurações', icon: Settings },
   { to: '/automacao', label: 'Automação (IA)', icon: Bot, comingSoon: true },
   { to: '/playbooks', label: 'Playbooks', icon: BookOpen, comingSoon: true },
   { to: '/inteligencia', label: 'Inteligência', icon: LineChart, comingSoon: true },
   { to: '/roi', label: 'Calculadora ROI', icon: Calculator, comingSoon: true },
 ];
 
-export const NAV_ITEMS: NavItem[] = [
-  ...TOP_NAV_ITEMS,
-  { to: '/campaigns', label: 'Disparos', icon: Megaphone },
-  { to: '/settings/profile', label: 'Configurações', icon: Settings },
-];
+export const NAV_ITEMS: NavItem[] = TOP_NAV_ITEMS;

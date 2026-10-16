@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   KeyRound,
   Package,
@@ -32,8 +32,13 @@ interface TabDef {
 }
 
 export default function SettingsPage() {
-  const { tenantRole } = useAppUser();
-  const [active, setActive] = useState<TabId>('credentials');
+  const { tenantRole, isSuperAdmin } = useAppUser();
+  const canManageTeam = tenantRole === 'admin' || isSuperAdmin;
+  const [active, setActive] = useState<TabId>(canManageTeam ? 'team' : 'account');
+
+  useEffect(() => {
+    if (canManageTeam) setActive((cur) => (cur === 'account' ? 'team' : cur));
+  }, [canManageTeam]);
 
   const tabs: TabDef[] = useMemo(
     () =>
@@ -49,7 +54,7 @@ export default function SettingsPage() {
           {
             id: 'team',
             label: 'Equipe',
-            hint: 'Convites e roles',
+            hint: 'Convidar admin ou operador',
             icon: Users,
             adminOnly: true,
             render: () => (
@@ -76,8 +81,8 @@ export default function SettingsPage() {
             render: () => <CredentialsPage />,
           },
         ] as TabDef[]
-      ).filter((t) => !t.adminOnly || tenantRole === 'admin'),
-    [tenantRole],
+      ).filter((t) => !t.adminOnly || canManageTeam),
+    [canManageTeam],
   );
 
   // Operador só enxerga "Conta"; admin vê tudo. Garante que a aba ativa
@@ -94,7 +99,7 @@ export default function SettingsPage() {
           <div className="text-label">Seção</div>
           <h1 className="text-2xl font-bold text-display">Configurações</h1>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            Conta, equipe e credenciais
+            Conta, convites de equipe e credenciais
           </p>
         </div>
       </div>

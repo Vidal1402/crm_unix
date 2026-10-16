@@ -57,7 +57,7 @@ export function Header({ onMenuClick, platform = false }: HeaderProps) {
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === '/saas' || item.to === '/dashboard'}
+                end={item.to === '/saas' || item.to === '/dashboard' || item.to === '/settings/profile'}
                 className={cn(
                   'whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors',
                   active ? 'bg-[#111827] text-white' : 'text-[#4B5563] hover:text-[#111827]',

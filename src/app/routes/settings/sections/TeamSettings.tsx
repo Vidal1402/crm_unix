@@ -37,8 +37,8 @@ interface MemberRow {
 }
 
 export function TeamSettings() {
-  const { userId, tenantRole } = useAppUser();
-  const isOwner = tenantRole === 'admin';
+  const { userId, tenantRole, isSuperAdmin } = useAppUser();
+  const isOwner = tenantRole === 'admin' || isSuperAdmin;
 
   const [members, setMembers] = useState<MemberRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -145,12 +145,11 @@ export function TeamSettings() {
     <Card>
       <div className="space-y-6">
         <header className="space-y-1">
-          <h2 className="text-xl font-bold text-display">Equipe</h2>
+          <h2 className="text-xl font-bold text-display">Convidar equipe</h2>
           <p className="text-sm text-[var(--color-text-secondary)]">
             {isOwner
-              ? 'Convide novos membros por e-mail. O Supabase envia o convite e o membro define a senha pelo link.'
-              : 'Apenas o owner desta instância pode convidar membros.'}
-          </p>
+              ? 'Envie um e-mail para entrar como Admin ou Operador. A pessoa define a senha pelo link do convite.'
+              : 'Apenas o admin desta instância pode convidar membros.'}
         </header>
 
         {isOwner && (

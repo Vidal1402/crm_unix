@@ -13,7 +13,7 @@ interface MobileNavProps {
 
 export function MobileNav({ open, onClose, platform = false }: MobileNavProps) {
   const { tenantRole } = useAppUser();
-  const source: NavItem[] = platform ? PLATFORM_NAV_ITEMS : [...TOP_NAV_ITEMS, ...NAV_ITEMS.filter((i) => !TOP_NAV_ITEMS.some((t) => t.to === i.to))];
+  const source: NavItem[] = platform ? PLATFORM_NAV_ITEMS : NAV_ITEMS;
   const items = platform
     ? source
     : source.filter((item) => !item.adminOnly || tenantRole === 'admin');
@@ -53,7 +53,7 @@ export function MobileNav({ open, onClose, platform = false }: MobileNavProps) {
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === '/saas' || item.to === '/dashboard'}
+                end={item.to === '/saas' || item.to === '/dashboard' || item.to === '/settings/profile'}
                 onClick={onClose}
                 className={({ isActive }) =>
                   cn(
