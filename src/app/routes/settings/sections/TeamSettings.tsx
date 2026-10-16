@@ -194,7 +194,7 @@ export function TeamSettings() {
                 value={role}
                 onChange={(e) => setRole(e.target.value as Role)}
                 disabled={inviting}
-                className="h-11 w-full rounded-lg border border-[rgba(59,130,246,0.2)] bg-white/[0.03] px-4 text-sm text-[var(--color-text-primary)]"
+                className="h-11 w-full rounded-lg border border-[#E5E7EB] bg-white px-4 text-sm text-[var(--color-text-primary)]"
               >
                 <option value="admin">Admin</option>
                 <option value="operator">Operador</option>
@@ -227,7 +227,7 @@ export function TeamSettings() {
               Nenhum membro ainda.
             </div>
           ) : (
-            <ul className="divide-y divide-[rgba(59,130,246,0.08)] rounded-lg border border-[rgba(59,130,246,0.1)] bg-white/[0.02]">
+            <ul className="divide-y divide-[#F3F4F6] rounded-lg border border-[#F3F4F6] bg-white">
               {members.map((m) => (
                 <li
                   key={m.id}
@@ -257,7 +257,7 @@ export function TeamSettings() {
                         aria-label={`Plano de ${m.email ?? m.user_id}`}
                         value={m.commercial_plan}
                         onChange={(e) => void handlePlanChange(m, e.target.value as CommercialPlan)}
-                        className="h-8 max-w-[160px] rounded-lg border border-[rgba(59,130,246,0.2)] bg-white/[0.03] px-2 text-xs text-[var(--color-text-primary)]"
+                        className="h-8 max-w-[160px] rounded-lg border border-[#E5E7EB] bg-white px-2 text-xs text-[var(--color-text-primary)]"
                       >
                         {PLAN_ORDER.map((p) => (
                           <option key={p} value={p}>

@@ -6,7 +6,7 @@ import { PlanLocked } from './PlanLocked';
 export function FeatureGate({ feature, children }: { feature: PlanFeature; children: ReactNode }) {
   const { plan, loading } = useAppUser();
   if (loading) {
-    return <div className="p-8 text-center text-label opacity-60">Carregando...</div>;
+    return children;
   }
   if (!hasPlanFeature(plan, feature)) {
     return <PlanLocked feature={feature} />;

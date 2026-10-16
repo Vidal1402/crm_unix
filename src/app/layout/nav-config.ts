@@ -8,6 +8,10 @@ import {
   SquareKanban,
   Building2,
   Shield,
+  Bot,
+  BookOpen,
+  LineChart,
+  Calculator,
 } from 'lucide-react';
 
 export interface NavItem {
@@ -17,21 +21,24 @@ export interface NavItem {
   adminOnly?: boolean;
 }
 
-// Single source of truth for both the Sidebar and the router. Adding a new
-// app section is a one-liner here.
-// Base de Conhecimento, Follow-ups e Horário de atendimento viraram abas dentro
-// de /ai-agent. Credenciais virou aba dentro de Configurações. Templates virou
-// aba dentro de /campaigns (Módulo 1).
 export const PLATFORM_NAV_ITEMS: NavItem[] = [
   { to: '/saas', label: 'Clientes', icon: Building2 },
   { to: '/saas/admins', label: 'Acesso', icon: Shield },
 ];
 
+export const TOP_NAV_ITEMS: NavItem[] = [
+  { to: '/dashboard', label: 'Visão Geral', icon: LayoutDashboard },
+  { to: '/inbox', label: 'CRM', icon: Inbox },
+  { to: '/contacts', label: 'Leads', icon: Users },
+  { to: '/funil', label: 'Pipeline', icon: SquareKanban },
+  { to: '/automacao', label: 'Automação (IA)', icon: Bot },
+  { to: '/playbooks', label: 'Playbooks', icon: BookOpen },
+  { to: '/inteligencia', label: 'Inteligência', icon: LineChart },
+  { to: '/roi', label: 'Calculadora ROI', icon: Calculator },
+];
+
 export const NAV_ITEMS: NavItem[] = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/inbox', label: 'Caixa de entrada', icon: Inbox },
-  { to: '/funil', label: 'Funis', icon: SquareKanban },
-  { to: '/contacts', label: 'Contatos', icon: Users },
-  { to: '/campaigns', label: 'Disparos em massa', icon: Megaphone },
+  ...TOP_NAV_ITEMS,
+  { to: '/campaigns', label: 'Disparos', icon: Megaphone },
   { to: '/settings/profile', label: 'Configurações', icon: Settings },
 ];

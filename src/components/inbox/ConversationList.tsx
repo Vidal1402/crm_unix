@@ -72,7 +72,7 @@ export function ConversationList({
   }
 
   return (
-    <ul className="divide-y divide-[rgba(59,130,246,0.06)]">
+    <ul className="divide-y divide-[#F3F4F6]">
       {conversations.map((c) => {
         const operator = operators.find((o) => o.user_id === c.assigned_to);
         const assignee = c.assigned_to ? operator?.name?.trim() || operator?.email || 'Responsável indisponível' : 'Sem responsável';
@@ -90,8 +90,8 @@ export function ConversationList({
               onClick={() => onSelect(c.id)}
               className={cn(
                 'w-full text-left p-3 transition-colors',
-                'hover:bg-white/[0.03]',
-                isActive && 'bg-[rgba(59,130,246,0.08)] border-l-2 border-[var(--accent-primary)]',
+                'hover:bg-white',
+                isActive && 'bg-[#F3F4F6] border-l-2 border-[var(--accent-primary)]',
                 !isActive && 'border-l-2 border-transparent',
               )}
             >
@@ -102,7 +102,7 @@ export function ConversationList({
                   </div>
                   <span
                     title={chan.label}
-                    className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-bg-primary)] ring-1 ring-[rgba(59,130,246,0.2)]"
+                    className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-bg-primary)] ring-1 ring-[#E5E7EB]"
                   >
                     <ChanIcon className={cn('h-2.5 w-2.5', chan.color)} />
                   </span>

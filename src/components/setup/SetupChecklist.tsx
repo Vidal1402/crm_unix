@@ -75,7 +75,7 @@ export function SetupChecklist() {
     <div className="glass-card p-5 sm:p-6">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[rgba(59,130,246,0.2)]">
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[#E5E7EB]">
             <ListChecks className="h-5 w-5 text-[var(--accent-primary)]" />
           </div>
           <div>
@@ -101,7 +101,7 @@ export function SetupChecklist() {
             <li key={step.id}>
               <Link
                 to={step.to}
-                className="flex items-start gap-3 rounded-xl border border-[rgba(59,130,246,0.12)] bg-white/[0.02] px-3 py-3 transition hover:border-[rgba(59,130,246,0.35)]"
+                className="flex items-start gap-3 rounded-xl border border-[#E5E7EB] bg-white px-3 py-3 transition hover:border-[rgba(34,197,94,0.2)]"
               >
                 <span className="mt-0.5">
                   {ok ? (

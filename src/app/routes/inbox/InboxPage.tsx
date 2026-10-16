@@ -217,7 +217,7 @@ export default function InboxPage() {
             selectedId ? 'hidden lg:flex' : 'flex'
           }`}
         >
-          <div className="p-3 border-b border-[rgba(59,130,246,0.08)] space-y-2">
+          <div className="p-3 border-b border-[#F3F4F6] space-y-2">
 
             {/* Busca + botão de filtros avançados (7.2) */}
             <div className="flex items-center gap-2">
@@ -227,7 +227,7 @@ export default function InboxPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Buscar nome, telefone ou mensagem…"
-                  className="w-full rounded-lg border border-[rgba(59,130,246,0.2)] bg-white/[0.03] pl-8 pr-3 py-2 text-xs text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--accent-primary)]"
+                  className="w-full rounded-lg border border-[#E5E7EB] bg-white pl-8 pr-3 py-2 text-xs text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--accent-primary)]"
                 />
               </div>
               <InboxFilters
@@ -244,7 +244,7 @@ export default function InboxPage() {
                 {activeChips.map((chip) => (
                   <span
                     key={chip.key}
-                    className="inline-flex items-center gap-1 rounded-full border border-[rgba(59,130,246,0.25)] bg-[rgba(59,130,246,0.1)] pl-2.5 pr-1 py-0.5 text-[11px] text-[var(--color-text-primary)]"
+                    className="inline-flex items-center gap-1 rounded-full border border-[#E5E7EB] bg-[#F3F4F6] pl-2.5 pr-1 py-0.5 text-[11px] text-[var(--color-text-primary)]"
                   >
                     {chip.label}
                     <button
@@ -291,7 +291,7 @@ export default function InboxPage() {
         >
           {selected ? (
             <>
-              <div className="p-3 border-b border-[rgba(59,130,246,0.08)] flex items-center gap-2">
+              <div className="p-3 border-b border-[#F3F4F6] flex items-center gap-2">
                 <button
                   onClick={() => setSelectedId(null)}
                   aria-label="Voltar à lista"
@@ -374,7 +374,7 @@ export default function InboxPage() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setShowPanelMobile(false)}
           />
-          <div className="absolute right-0 top-0 h-full w-80 max-w-[85vw] glass-surface border-l border-[rgba(59,130,246,0.15)] overflow-y-auto">
+          <div className="absolute right-0 top-0 h-full w-80 max-w-[85vw] glass-surface border-l border-[#E5E7EB] overflow-y-auto">
             <div className="flex justify-end p-2">
               <button
                 onClick={() => setShowPanelMobile(false)}
