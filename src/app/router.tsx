@@ -4,7 +4,6 @@ import { AppLayout } from './layout/AppLayout';
 import { useSupabaseConfig } from '@/hooks/useSupabase';
 import { useAuth } from './providers/AuthProvider';
 import { isAuthCallbackLocation } from '@/lib/auth-callback';
-import { FeatureGate } from '@/components/plans/FeatureGate';
 import { useAppUser } from './providers/AppUserProvider';
 import { homePath } from '@/lib/home-path';
 import SetupPage from './routes/setup/SetupPage';
@@ -152,14 +151,7 @@ export function AppRouter() {
         />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/inbox" element={<InboxPage />} />
-        <Route
-          path="/campaigns"
-          element={
-            <FeatureGate feature="campaigns">
-              <CampaignsPage />
-            </FeatureGate>
-          }
-        />
+          <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/templates" element={<Navigate to="/campaigns?tab=templates" replace />} />
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/contacts/:id" element={<ContactDetailPage />} />

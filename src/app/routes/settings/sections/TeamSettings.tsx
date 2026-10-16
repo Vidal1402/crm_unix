@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { getSupabase } from '@/lib/supabase';
 import { useAppUser } from '@/app/providers/AppUserProvider';
-import { PLANS, PLAN_ORDER, parsePlan, type CommercialPlan } from '@/lib/plans';
 
 type Role = 'admin' | 'operator';
 
@@ -35,11 +34,10 @@ interface MemberRow {
   user_id: string;
   email: string | null;
   accepted_at: string | null;
-  commercial_plan: CommercialPlan;
 }
 
 export function TeamSettings() {
-  const { userId, tenantRole, reloadPlan } = useAppUser();
+  const { userId, tenantRole } = useAppUser();
   const isOwner = tenantRole === 'admin';
 
   const [members, setMembers] = useState<MemberRow[]>([]);
@@ -58,7 +56,7 @@ export function TeamSettings() {
     const [membersRes, opsRes] = await Promise.all([
       supabase
         .from('app_users')
-        .select('id, role, user_id, accepted_at, commercial_plan')
+        .select('id, role, user_id, accepted_at')
         .order('invited_at', { ascending: true }),
       supabase.schema('whatsapp_hub').rpc('list_operators'),
     ]);
@@ -78,7 +76,6 @@ export function TeamSettings() {
           user_id: row.user_id as string,
           email: emailByUser.get(row.user_id as string) ?? null,
           accepted_at: (row.accepted_at as string | null) ?? null,
-          commercial_plan: parsePlan((row as { commercial_plan?: unknown }).commercial_plan),
         })),
       );
     }
@@ -119,21 +116,6 @@ export function TeamSettings() {
     });
 
     setEmail('');
-    void loadAll();
-  };
-
-  const handlePlanChange = async (member: MemberRow, next: CommercialPlan) => {
-    const supabase = getSupabase();
-    const { error } = await supabase
-      .from('app_users')
-      .update({ commercial_plan: next })
-      .eq('id', member.id);
-    if (error) {
-      toast.error('Não foi possível alterar o plano', { description: error.message });
-      return;
-    }
-    toast.success(`${member.email ?? 'Membro'} agora está no plano ${PLANS[next].name}.`);
-    if (member.user_id === userId) await reloadPlan();
     void loadAll();
   };
 
@@ -252,22 +234,6 @@ export function TeamSettings() {
                     <span className="text-xs uppercase tracking-wide font-semibold text-[var(--accent-primary)]">
                       {m.role === 'admin' ? 'Owner' : 'Operador'}
                     </span>
-                    {isOwner ? (
-                      <select
-                        aria-label={`Plano de ${m.email ?? m.user_id}`}
-                        value={m.commercial_plan}
-                        onChange={(e) => void handlePlanChange(m, e.target.value as CommercialPlan)}
-                        className="h-8 max-w-[160px] rounded-lg border border-[#E5E7EB] bg-white px-2 text-xs text-[var(--color-text-primary)]"
-                      >
-                        {PLAN_ORDER.map((p) => (
-                          <option key={p} value={p}>
-                            {PLANS[p].name} · R$ {PLANS[p].price}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      <span className="text-xs text-[var(--color-text-secondary)]">{PLANS[m.commercial_plan].name}</span>
-                    )}
                     {isOwner && m.user_id !== userId && (
                       <button
                         type="button"

@@ -15,7 +15,6 @@ import { TeamSettings } from './sections/TeamSettings';
 import { LeadAssignmentSettings } from './sections/LeadAssignmentSettings';
 import { ProductsSettings } from './sections/ProductsSettings';
 import CredentialsPage from './CredentialsPage';
-import { FeatureGate } from '@/components/plans/FeatureGate';
 
 type TabId =
   | 'account'
@@ -56,9 +55,7 @@ export default function SettingsPage() {
             render: () => (
               <div className="space-y-6">
                 <TeamSettings />
-                <FeatureGate feature="lead_assignment">
-                  <LeadAssignmentSettings />
-                </FeatureGate>
+                <LeadAssignmentSettings />
               </div>
             ),
           },
@@ -68,11 +65,7 @@ export default function SettingsPage() {
             hint: 'Catálogo atribuível a leads',
             icon: Package,
             adminOnly: true,
-            render: () => (
-              <FeatureGate feature="settings_products">
-                <ProductsSettings />
-              </FeatureGate>
-            ),
+            render: () => <ProductsSettings />,
           },
           {
             id: 'credentials',
