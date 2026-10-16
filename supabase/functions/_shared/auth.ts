@@ -11,7 +11,8 @@ import { getAdminClient, getAuthAdminClient } from './supabase-admin.ts';
 export interface Caller {
   userId: string;
   email: string | null;
-  role: 'admin' | 'operator' | null;
+  role: 'admin' | 'operator' | 'super_admin' | null;
+  tenantId: string | null;
 }
 
 export class AuthError extends Error {
@@ -37,20 +38,41 @@ export async function requireCaller(req: Request): Promise<Caller> {
 
   const appMeta = (data.user.app_metadata ?? {}) as Record<string, unknown>;
   const role = typeof appMeta.role === 'string' ? appMeta.role : null;
+  const tenantId = typeof appMeta.tenant_id === 'string' ? appMeta.tenant_id : null;
 
   return {
     userId: data.user.id,
     email: data.user.email ?? null,
     role: (role as Caller['role']) ?? null,
+    tenantId,
   };
 }
 
 export async function requireAdmin(req: Request): Promise<Caller> {
   const caller = await requireCaller(req);
-  if (caller.role !== 'admin') {
+  if (caller.role !== 'admin' && caller.role !== 'super_admin') {
     throw new AuthError('Admin role required', 403);
   }
   return caller;
+}
+
+export async function requireSuperAdmin(req: Request): Promise<Caller> {
+  const caller = await requireCaller(req);
+  if (caller.role === 'super_admin') return caller;
+
+  const { data } = await getAdminClient()
+    .from('platform_admins')
+    .select('user_id')
+    .eq('user_id', caller.userId)
+    .maybeSingle();
+  if (data) return { ...caller, role: 'super_admin' };
+
+  throw new AuthError('Acesso exclusivo de Super Admin.', 403);
+}
+
+/** @deprecated use requireSuperAdmin */
+export async function requirePlatformOperator(req: Request): Promise<Caller> {
+  return requireSuperAdmin(req);
 }
 
 // Gate para funções acionadas por pg_cron / triggers pg_net, que NÃO carregam
